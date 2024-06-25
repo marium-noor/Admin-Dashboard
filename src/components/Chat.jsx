@@ -1,13 +1,16 @@
 import React from 'react';
 import { MdOutlineCancel } from 'react-icons/md';
 
-import { Buttons } from '.';
+import Buttons from './Buttons';
 import { chatData } from '../data/dummy';
 import { useStateContext } from '../context/ContextProvider';
 
 const Chat = () => {
-  const { currentColor } = useStateContext();
+  const { currentColor, setIsClicked } = useStateContext();
 
+  const handleCloseNotification = () => {
+    setIsClicked(prevState => ({ ...prevState, chat: false }));
+  };
   return (
     <div className="nav-item absolute right-5 md:right-52 top-16 bg-white dark:bg-[#42464D] p-8 rounded-lg w-96">
       <div className="flex justify-between items-center">
@@ -18,12 +21,13 @@ const Chat = () => {
           </button>
         </div>
         <Buttons
-          icon={<MdOutlineCancel />}
+          text={<MdOutlineCancel />}
           color="rgb(153, 171, 180)"
           bgHoverColor="light-gray"
           size="2xl"
           borderRadius="50%"
-        />
+          handleClick={handleCloseNotification}
+          />
       </div>
       <div className="mt-5 ">
         {chatData?.map((item, index) => (

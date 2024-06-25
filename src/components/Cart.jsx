@@ -4,22 +4,26 @@ import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 
 import { useStateContext } from '../context/ContextProvider';
 import { cartData } from '../data/dummy';
-import { Buttons } from '.';
+import Buttons from './Buttons';
 
 const Cart = () => {
-  const { currentColor } = useStateContext();
+  const { currentColor, setIsClicked } = useStateContext();
 
+  const handleCloseNotification = () => {
+    setIsClicked(prevState => ({ ...prevState, cart: false }));
+  };
   return (
     <div className="bg-half-transparent w-full fixed nav-item top-0 right-0 ">
       <div className="float-right h-screen  duration-1000 ease-in-out dark:text-gray-200 transition-all dark:bg-[#484B52] bg-white md:w-400 p-8">
         <div className="flex justify-between items-center">
           <p className="font-semibold text-lg">Shopping Cart</p>
           <Buttons
-            icon={<MdOutlineCancel />}
+            text={<MdOutlineCancel />}
             color="rgb(153, 171, 180)"
             bgHoverColor="light-gray"
             size="2xl"
             borderRadius="50%"
+            handleClick={handleCloseNotification}
           />
         </div>
         {cartData?.map((item, index) => (
